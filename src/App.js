@@ -5,6 +5,7 @@ import Swipe from "react-easy-swipe";
 import { useGameDataContext } from "./service/contexts";
 import { swipeDown, swipeLeft, swipeRight, swipeUp } from "./service/swipes";
 import { Block } from "./components/Block";
+import { Container } from "./components/Container";
 
 function App() {
   const UP_ARROW = 38;
@@ -91,12 +92,12 @@ function App() {
   }
   /*
 function handleTouchMove(evt) {
-   
+
     if ( ! xDown || ! yDown ) {
         return;
     }
     console.log(evt.touches);
-   var xUp = evt.touches[0].clientX;                        
+   var xUp = evt.touches[0].clientX;
     var yUp = evt.touches[0].clientY;
 
     var xDiff = xDown - xUp;
@@ -106,32 +107,32 @@ function handleTouchMove(evt) {
       console.log(yDiff);
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
         if ( xDiff > 0 && timer ==0) {
-          
+
           timer = 3000
           swipeLeft()
-          
-          
+
+
         } else {
           timer = 3000
           swipeRight()
-            // right swipe 
-            
-            
-        }                       
+            // right swipe
+
+
+        }
     } else if ( xDiff = 0 && timer ==0) {
         if ( yDiff > 0 ) {
-            // up swipe 
-            
-        } else { 
-            // down swipe 
-            
-        }                                                                 
+            // up swipe
+
+        } else {
+            // down swipe
+
+        }
     }
     }
-    
+
     xDown = null;
-    yDown = null;   
-                                              
+    yDown = null;
+
 };
 */
 
@@ -184,123 +185,28 @@ function handleTouchMove(evt) {
   useEvent("keydown", handleKeyDown);
 
   return (
-    <div className="App">
-      <div
-        style={{
-          width: 345,
-          margin: "auto",
-          marginTop: 30,
+    <Container>
+      <Swipe
+        onSwipeDown={() => {
+          swipeDown(false, gameDataContext);
         }}
+        onSwipeLeft={() => swipeLeft(false, gameDataContext)}
+        onSwipeRight={() => swipeRight(false, gameDataContext)}
+        onSwipeUp={() => swipeUp(false, gameDataContext)}
+        style={{ overflowY: "hidden" }}
       >
-        <div style={{ display: "flex" }}>
-          <div
-            style={{
-              fontFamily: "sans-serif",
-              flex: 1,
-              fontWeight: "700",
-              fontSize: 60,
-              color: "#776e65",
-            }}
-          >
-            2048
-          </div>
-          <div
-            style={{
-              flex: 1,
-              marginTop: "auto",
-            }}
-          >
-            <div onClick={resetGame} style={style.newGameButton}>
-              NEW GAME
+        {data.map((row, oneIndex) => {
+          return (
+            <div style={{ display: "flex" }} key={oneIndex}>
+              {row.map((digit, index) => (
+                <Block num={digit} key={index} />
+              ))}
             </div>
-          </div>
-        </div>
-        <div
-          style={{
-            background: "#AD9D8F",
-            width: "max-content",
-            height: "max-content",
-            margin: "auto",
-            padding: 5,
-            borderRadius: 5,
-            marginTop: 10,
-            position: "relative",
-          }}
-        >
-          {gameOver && (
-            <div style={style.gameOverOverlay}>
-              <div>
-                <div
-                  style={{
-                    fontSize: 30,
-                    fontFamily: "sans-serif",
-                    fontWeight: "900",
-                    color: "#776E65",
-                  }}
-                >
-                  Game Over
-                </div>
-                <div>
-                  <div
-                    style={{
-                      flex: 1,
-                      marginTop: "auto",
-                    }}
-                  >
-                    <div onClick={resetGame} style={style.tryAgainButton}>
-                      Try Again
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-          <Swipe
-            onSwipeDown={() => {
-              swipeDown(false, gameDataContext);
-            }}
-            onSwipeLeft={() => swipeLeft(false, gameDataContext)}
-            onSwipeRight={() => swipeRight(false, gameDataContext)}
-            onSwipeUp={() => swipeUp(false, gameDataContext)}
-            style={{ overflowY: "hidden" }}
-          >
-            {data.map((row, oneIndex) => {
-              return (
-                <div style={{ display: "flex" }} key={oneIndex}>
-                  {row.map((digit, index) => (
-                    <Block num={digit} key={index} />
-                  ))}
-                </div>
-              );
-            })}
-          </Swipe>
-        </div>
-
-        <div style={{ width: "inherit" }}>
-          <p class="game-explanation">
-            <strong class="important">How to play:</strong> Use your{" "}
-            <strong>arrow keys</strong> to move the tiles. When two tiles with
-            the same number touch, they <strong>merge into one!</strong>
-          </p>
-        </div>
-      </div>
-    </div>
+          );
+        })}
+      </Swipe>
+    </Container>
   );
 }
-
-const style = {
-  blockStyle: {
-    height: 80,
-    width: 80,
-    background: "lightgray",
-    margin: 3,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: 45,
-    fontWeight: "800",
-    color: "white",
-  },
-};
 
 export default App;
