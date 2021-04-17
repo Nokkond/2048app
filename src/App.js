@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { useEvent} from "./service/utils";
+import { useEvent } from "./service/utils";
 import "./App.css";
 import Swipe from "react-easy-swipe";
 import { useGameDataContext } from "./service/contexts";
 import { swipeDown, swipeLeft, swipeRight, swipeUp } from "./service/swipes";
-import {Block} from "./components/Block";
+import { Block } from "./components/Block";
 
 function App() {
   const UP_ARROW = 38;
