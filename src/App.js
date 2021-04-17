@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useEvent } from "./service/utils";
 import "./App.css";
-import Swipe from "react-easy-swipe";
 import { useGameDataContext } from "./service/contexts";
 import { swipeDown, swipeLeft, swipeRight, swipeUp } from "./service/swipes";
-import { Block } from "./components/Block";
 import { Container } from "./components/Container";
+import { SwipeField } from "./components/SwipeField";
 
 function App() {
   const UP_ARROW = 38;
@@ -20,7 +19,6 @@ function App() {
     checkGameOver,
     addNumber,
     initializeGame,
-    resetGame,
   } = useGameDataContext();
 
   const gameDataContext = { data, setData, addNumber };
@@ -52,12 +50,12 @@ function App() {
   //     };
 
   //     return (
-  //       <Swipe
+  //       <SwipeField
   //         onSwipeStart={this.onSwipeStart}
   //         onSwipeMove={this.onSwipeMove}
   //         onSwipeEnd={this.onSwipeEnd}>
   //           {/* <div style={boxStyle}>Open the console and swipe me</div> */}
-  //       </Swipe>
+  //       </SwipeField>
   //     );
   //   }
   // }
@@ -186,25 +184,7 @@ function handleTouchMove(evt) {
 
   return (
     <Container>
-      <Swipe
-        onSwipeDown={() => {
-          swipeDown(false, gameDataContext);
-        }}
-        onSwipeLeft={() => swipeLeft(false, gameDataContext)}
-        onSwipeRight={() => swipeRight(false, gameDataContext)}
-        onSwipeUp={() => swipeUp(false, gameDataContext)}
-        style={{ overflowY: "hidden" }}
-      >
-        {data.map((row, oneIndex) => {
-          return (
-            <div style={{ display: "flex" }} key={oneIndex}>
-              {row.map((digit, index) => (
-                <Block num={digit} key={index} />
-              ))}
-            </div>
-          );
-        })}
-      </Swipe>
+      <SwipeField />
     </Container>
   );
 }
