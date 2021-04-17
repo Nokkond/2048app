@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import cloneDeep from "lodash.clonedeep";
-import { useEvent, getColors } from "./service/utils";
+import { useEvent} from "./service/utils";
 import "./App.css";
 import Swipe from "react-easy-swipe";
 import { useGameDataContext } from "./service/contexts";
 import { swipeDown, swipeLeft, swipeRight, swipeUp } from "./service/swipes";
+import {Block} from "./components/Block";
 
 function App() {
   const UP_ARROW = 38;
@@ -287,22 +287,6 @@ function handleTouchMove(evt) {
     </div>
   );
 }
-
-const Block = ({ num }) => {
-  const { blockStyle } = style;
-
-  return (
-    <div
-      style={{
-        ...blockStyle,
-        background: getColors(num),
-        color: num === 2 || num === 4 ? "#645B52" : "#F7F4EF",
-      }}
-    >
-      {num !== 0 ? num : ""}
-    </div>
-  );
-};
 
 const style = {
   blockStyle: {
