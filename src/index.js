@@ -1,18 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {GameProvider} from "./gameContext";
-
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { GameDataProvider } from "./service/contexts";
 
 ReactDOM.render(
   <React.StrictMode>
-      <GameProvider>
-    <App />
-      </GameProvider>
+    <GameDataProvider>
+      <App />
+    </GameDataProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
